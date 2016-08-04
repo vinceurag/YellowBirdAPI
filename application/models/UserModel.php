@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class UserModel extends CI_Model
+class Usermodel extends CI_Model
 {
      function __construct()
      {
@@ -33,6 +33,15 @@ class UserModel extends CI_Model
 
      function post_reservations($reservationInfo){
        $this->db->insert('tbl_reservations', $reservationInfo);
+       if ($this->db->affected_rows() > 0) {
+         return $this->db->insert_id();
+       } else {
+         return false;
+       }
+     }
+
+     function post_confirm($id){
+       $query = $this->db->query("UPDATE tbl_reservations SET status = 'Confirmed' where id=".$id);
        if ($this->db->affected_rows() > 0) {
          return true;
        } else {

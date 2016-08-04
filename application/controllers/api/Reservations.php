@@ -88,22 +88,64 @@ class Reservations extends REST_Controller {
                                 ), REST_Controller::HTTP_BAD_REQUEST);
           }
 
+
           $reservationInfo = array(
             'date_f' => $date_f,
             'time_f' => $time_f,
             'name_mobile' => $name_mobile,
             'numOfSeats' => $numOfSeats,
-            'tableType' => $tableType
+            'tableType' => $tableType,
+            'status' => 'Open'
           );
           $result = $this->UserModel->post_reservations($reservationInfo);
-          if($result == TRUE){
-            $this->response($reservationInfo, 201);
+          if($result != FALSE){
+            $res = array(
+                'id' => $result,
+                'date_f' => $date_f,
+                'time_f' => $time_f,
+                'name_mobile' => $name_mobile,
+                'numOfSeats' => $numOfSeats,
+                'tableType' => $tableType,
+                'status' => 'Open'
+            );
+            $this->response($res, 201);
           }else {
             $this->response(array(
                                   'error' => array('title' => 'Database Error', 'detail' => 'not inserted')
                                 ), REST_Controller::HTTP_BAD_REQUEST);
           }
 
+    }
+
+    public function confirm_post($id){
+      $this->load->library('jwt');
+      $authorizationResult = json_decode($this->jwt->check(), true);
+      $authorization = $authorizationResult['authorization'];
+
+      if($authorization == "authorized") {
+          if($id === NULL){
+            $this->response(array(
+              'error' => ['title' => 'Missing parameter', 'detail' => 'id required']
+            ), REST_Controller::HTTP_BAD_REQUEST);
+          }else {
+            $result = $this->UserModel->post_confirm($id);
+            if($result == TRUE){
+              $this->response(array(
+                                    'success' => array('title' => 'Status Updated', 'detail' => 'reservation was confirmed')
+                                  ), REST_Controller::HTTP_ACCEPTED);
+            }else {
+              $this->response(array(
+                                    'error' => array('title' => 'Database Error', 'detail' => 'not inserted')
+                                  ), REST_Controller::HTTP_BAD_REQUEST);
+            }
+          }
+      }else{
+        $this->response(array(
+                              'error' => array('title' => $authorization, 'detail' => 'invalid token'),
+                              'id' => null,
+                              'meta' => array('token' => 'null')
+                            ), REST_Controller::HTTP_UNAUTHORIZED);
+      }
     }
 
 
