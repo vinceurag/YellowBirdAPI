@@ -4,8 +4,9 @@ A fully RESTful server implementation via Codeigniter and REST_Controller librar
 ## API Endpoints
 ###`/auth` - for token generation
 ####Parameters
-#####`username` - user's username
-#####`password` - user's password
+#####POST
+######`username` - user's username
+######`password` - user's password
 ###`/reservations` - posting and getting reservations
 ####Parameters
 #####POST
@@ -16,3 +17,7 @@ A fully RESTful server implementation via Codeigniter and REST_Controller librar
 ######`tableType` - Type of table (e.g., couch, high chair)
 #####GET
 ######`Authorization` - JSON Web TOken. Format: Authorization: Bearer eyjdsa.dasda.dasdsa
+###`/reservations/confirm/{id}` - for token generation
+####Parameters
+#####POST
+######`id` - ID of reservation to be confirmed
