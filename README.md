@@ -1,5 +1,5 @@
 # Yellow Bird Cafe x Kitchen REST API
-A fully RESTful server implementation for via Codeigniter and REST_Controller library. JSON Web Token was used in implementing authorization
+A fully RESTful server implementation via Codeigniter and REST_Controller library for the online reservation feature. JSON Web Token was used in implementing authorization
 
 ## API Endpoints
 ###`/auth` - for token generation
