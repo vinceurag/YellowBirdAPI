@@ -17,7 +17,7 @@ A fully RESTful server implementation via Codeigniter and REST_Controller librar
 ######`tableType` - Type of table (e.g., couch, high chair)
 #####GET
 ######`Authorization` - JSON Web TOken. Format: Authorization: Bearer eyjdsa.dasda.dasdsa
-###`/reservations/confirm/{id}` - for token generation
+###`/reservations/confirm/{id}` - confirmation of a single reservation
 ####Parameters
 #####POST
 ######`id` - ID of reservation to be confirmed
