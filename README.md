@@ -21,3 +21,4 @@ A fully RESTful server implementation via Codeigniter and REST_Controller librar
 ####Parameters
 #####POST
 ######`id` - ID of reservation to be confirmed
+######`Authorization` - JSON Web TOken. Format: Authorization: Bearer eyjdsa.dasda.dasdsa
